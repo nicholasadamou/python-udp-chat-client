@@ -53,7 +53,7 @@ class Server:
                 # Check if the client already exists
                 if nickname not in self.clients:
                     # Add the client to the connected clients list
-                    self.clients[nickname] = [address, self.current_sequence_num]
+                    self.clients[nickname] = [address, current_sequence_num]
 
                     # Show that this client has connected
                     print("[!] 🖥️ Client (%s, '%s', %s): has connected" % (nickname, address[0], address[1]))
@@ -87,7 +87,7 @@ class Server:
                 # Check if this client has timed-out, if he or she
                 # hasn't acknowledged the last 3 or more messages sent
                 # to the server
-                if self.current_sequence_num - last_sequence_num >= 3:
+                if current_sequence_num - last_sequence_num >= 3:
                     # Show that the server is dropping this client
                     print("[!] 🖥 Client (%s, '%s', %s): has disconnected" % (nickname, addr, port))
 
@@ -98,7 +98,7 @@ class Server:
                     continue
 
                 # Update the current sequence number
-                current_sequence_num = self.current_sequence_num + 1
+                current_sequence_num = current_sequence_num + 1
 
                 # Check if the client has left the chat
                 if message.lower() != self.QUIT_MESSAGE.lower():
