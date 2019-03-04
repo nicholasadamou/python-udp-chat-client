@@ -24,13 +24,19 @@ class Server:
         # for incoming connections
         print("[*] Waiting for Someone to Join the Chat")
         print("[*] Chat Server listening on ('%s', %s)" % (self.addr, self.port))
-
+        
+        # Accept and handle all incoming connections
+        self.accept_incoming_connections(server_socket)
+        
+    def accept_incoming_connections(self, server_socket):
+        """Handle all incoming connections"""
+        
         # Store the current sequence #
         self.current_sequence_num = 0
 
         while 1:
             # Receive a message from the client
-            data, address = self.server_socket.recvfrom(self.BUFFER_SIZE)
+            data, address = server_socket.recvfrom(self.BUFFER_SIZE)
 
             # Decode the data sent by the client
             # and obtain the nickname and message sent by client
@@ -53,14 +59,14 @@ class Server:
                     print("[!] 🖥️ Client (%s, '%s', %s): has connected" % (nickname, address[0], address[1]))
 
                     # Broadcast a message showing that this client has joined the chat
-                    self.broadcast(self.server_socket, "%s has joined the chat!" % nickname)
+                    self.broadcast(server_socket, "%s has joined the chat!" % nickname)
 
                     # Construct welcome message to send back to this specific client
                     message = str.encode('Welcome %s! '
                                          'If you ever want to quit, type \'{quit}\' within the chat client to exit.' % nickname)
 
                     # Send welcome message to this specific client
-                    self.server_socket.sendto(message, address)
+                    server_socket.sendto(message, address)
 
                     # Continue iterating, after adding the client
                     continue
@@ -70,7 +76,7 @@ class Server:
 
                     # Send a message back to the client indicating that this
                     # nickname is already taken and to choose another one
-                    self.server_socket.sendto(str.encode(self.NICKNAME_ALREADY_EXISTS_MESSAGE, 'utf-8'), address)
+                    server_socket.sendto(str.encode(self.NICKNAME_ALREADY_EXISTS_MESSAGE, 'utf-8'), address)
 
                     # Continue iterating, after rejecting nickname
                     continue
@@ -100,7 +106,7 @@ class Server:
                     message = '%s > %s' % (nickname, message)
 
                     # If client has not left chat, broadcast the received message
-                    self.broadcast(self.server_socket, message)
+                    self.broadcast(server_socket, message)
                 else:
                     # If client has left chat, because he or she has entered '{quit}':
 
