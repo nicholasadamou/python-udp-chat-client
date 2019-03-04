@@ -260,6 +260,7 @@ class Client(Tk):
         # Show the message
         print("[*] [SENT] %s > %s" % (self.nickname, message))
 
+        # Check if the message to be sent is the same as the quit message ('{quit}')
         if message.lower() == QUIT_MESSAGE.lower():
             # If message is '{quit}', then close the client connection and quit
             print("[!] 🖥️ Client (%s, '%s', %s): has disconnected" % (self.nickname, self.server_addr, self.server_port))
