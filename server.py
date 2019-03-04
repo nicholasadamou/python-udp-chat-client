@@ -56,7 +56,7 @@ class Server:
                     self.clients[nickname] = [address, current_sequence_num]
 
                     # Show that this client has connected
-                    print("[!] 🖥️ Client (%s, '%s', %s): has connected" % (nickname, address[0], address[1]))
+                    print("[+] 🖥️ Client (%s, '%s', %s): has connected" % (nickname, address[0], address[1]))
 
                     # Broadcast a message showing that this client has joined the chat
                     self.broadcast(server_socket, "%s has joined the chat!" % nickname)
@@ -89,7 +89,7 @@ class Server:
                 # to the server
                 if (current_sequence_num - last_sequence_num) >= 3:
                     # Show that the server is dropping this client
-                    print("[!] 🖥 Client (%s, '%s', %s): has disconnected" % (nickname, addr, port))
+                    print("[-] 🖥 Client (%s, '%s', %s): has disconnected" % (nickname, addr, port))
 
                     # If the client has timed-out, remove them from the chat
                     del self.clients[nickname]
@@ -111,7 +111,7 @@ class Server:
                     # If client has left chat, because he or she has entered '{quit}':
 
                     # Show that the client has disconnected
-                    print("[!] 🖥 Client (%s, '%s', %s): has disconnected" % (nickname, addr, port))
+                    print("[-] 🖥 Client (%s, '%s', %s): has disconnected" % (nickname, addr, port))
 
                     # Remove the client from the client's list
                     del self.clients[nickname]
