@@ -112,7 +112,7 @@ class Login(Tk):
         self.destroy()
 
     def does_nickname_already_exist(self, nickname):
-        """Determines if the client's chosen nick already exists within the
+        """Determines if the client's chosen nickname already exists within the
         chat server's connected client list"""
 
         # Construct the client payload to be sent to the chat server
