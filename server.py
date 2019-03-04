@@ -24,15 +24,15 @@ class Server:
         # for incoming connections
         print("[*] Waiting for Someone to Join the Chat")
         print("[*] Chat Server listening on ('%s', %s)" % (self.addr, self.port))
-        
+
         # Accept and handle all incoming connections
-        self.accept_incoming_connections(server_socket)
-        
+        self.accept_incoming_connections(self.server_socket)
+
     def accept_incoming_connections(self, server_socket):
         """Handle all incoming connections"""
-        
+
         # Store the current sequence #
-        self.current_sequence_num = 0
+        current_sequence_num = 0
 
         while 1:
             # Receive a message from the client
@@ -98,7 +98,7 @@ class Server:
                     continue
 
                 # Update the current sequence number
-                self.current_sequence_num = self.current_sequence_num + 1
+                current_sequence_num = self.current_sequence_num + 1
 
                 # Check if the client has left the chat
                 if message.lower() != self.QUIT_MESSAGE.lower():
@@ -124,7 +124,7 @@ class Server:
                         break
 
                 # Update the client's last sequence number
-                self.clients[nickname] = [address, self.current_sequence_num]
+                self.clients[nickname] = [address, current_sequence_num]
 
     @staticmethod
     def decode_message(data):
