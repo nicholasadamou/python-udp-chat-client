@@ -87,7 +87,7 @@ class Server:
                 # Check if this client has timed-out, if he or she
                 # hasn't acknowledged the last 3 or more messages sent
                 # to the server
-                if current_sequence_num - last_sequence_num >= 3:
+                if (current_sequence_num - last_sequence_num) >= 3:
                     # Show that the server is dropping this client
                     print("[!] 🖥 Client (%s, '%s', %s): has disconnected" % (nickname, addr, port))
 
