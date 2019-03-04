@@ -3,6 +3,7 @@ from tkinter import messagebox
 
 import socket
 import threading
+import re
 
 # Types of messages sent by the client
 NEW_CLIENT_MESSAGE = '{NEW CLIENT REQUEST}'  # Used to indicated a new client is connecting to the server
