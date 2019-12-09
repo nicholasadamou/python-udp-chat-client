@@ -137,7 +137,7 @@ class Login(Tk):
             # Clear the nickname entry field
             self.nickname.set('')
 
-            # Nickname is not unique and exits within the server's
+            # Nickname is not unique and exists within the server's
             # connected client list
             return True
         else:
